@@ -13,7 +13,7 @@ def read_file():
     storage_client = storage.Client()
     bucket = storage_client.get_bucket('diabetes-bucket')
     blob = bucket.blob('diabetes_pickled.joblib')
-    blob.download_to_filename('diabetes_pickled.joblib')
+    #blob.download_to_filename('diabetes_pickled.joblib')
     x = io.BytesIO(blob.download_as_string())
     return x
 
