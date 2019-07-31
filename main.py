@@ -39,6 +39,8 @@ def server_error(e):
 
 @app.route('/predict', methods=['POST'])
 def pred():
+    model = joblib.load(read_file())
+    print(model)
     data = request.get_json()
     prediction = np.array2string(model.predict(data))
     print('This is the data:', data)
@@ -53,8 +55,8 @@ if __name__ == '__main__':
     # I am hardwiring the file, IS THAT OKAY??? #teraform: look it up
     # When testing web app locally, use different cloud shell
     
-    model = joblib.load(read_file())
-    print(model)
+    #model = joblib.load(read_file())
+    #print(model)
     app.run(host='127.0.0.1', port=8080, debug=True)
 
 
