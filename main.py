@@ -14,7 +14,7 @@ def read_file():
     bucket = storage_client.get_bucket('diabetes-bucket')
     blob = bucket.blob('diabetes_pickled.joblib')
     blob.download_to_filename('diabetes_pickled.joblib')
-    x = io.StringIO(blob.download_as_string())
+    x = io.BytesIO(blob.download_as_string())
     return x
 
 
@@ -41,6 +41,8 @@ def server_error(e):
 def pred():
     data = request.get_json()
     prediction = np.array2string(model.predict(data))
+    print('This is the data:', data)
+    print('This is the prediction', prediction)
     return jsonify(prediction)
 
 if __name__ == '__main__':
@@ -51,8 +53,10 @@ if __name__ == '__main__':
     # I am hardwiring the file, IS THAT OKAY??? #teraform: look it up
     # When testing web app locally, use different cloud shell
     
-    model = joblib.load(open('static/diabetes_pickled.joblib','rb'))
+    model = joblib.load(read_file())
+    print(model)
     app.run(host='127.0.0.1', port=8080, debug=True)
+
 
     #Questions:
     # Why isn't my predict URL working? Why isn't request.py working?
