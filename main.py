@@ -15,7 +15,6 @@ def read_file():
     x = io.BytesIO(blob.download_as_string())
     return x
 
-
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
@@ -25,7 +24,6 @@ def hello():
 def newroute(name):
     """parameter"""
     return "this was passed in: %s" % name
-
 
 @app.errorhandler(500)
 def server_error(e):
@@ -52,6 +50,4 @@ def test():
 if __name__ == '__main__':
     # This is used when running locally. Gunicorn is used to run the
     # application on Google App Engine. See entrypoint in app.yaml.
-    #model = joblib.load(read_file())
-    #print(model)
     app.run(host='127.0.0.1', port=8080, debug=True)
