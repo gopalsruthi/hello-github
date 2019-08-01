@@ -1,13 +1,11 @@
 import logging
 from google.cloud import storage
-from flask import Flask, request, redirect, url_for, flash, jsonify
+from flask import Flask, request, jsonify
 import numpy as np
-#import pickle as p
-import json
 import joblib
 import io
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 def read_file():
     storage_client = storage.Client()
@@ -47,21 +45,11 @@ def pred():
     print('This is the prediction', prediction)
     return jsonify(prediction)
 
+@app.route('/loaderio-bd9c583078780187f53afe60d102f2a7.txt')
+def test():
+    return 'loaderio-bd9c583078780187f53afe60d102f2a7'
+
 if __name__ == '__main__':
     # This is used when running locally. Gunicorn is used to run the
     # application on Google App Engine. See entrypoint in app.yaml.
-    # modelfile = read_file()
-    # model = p.load(open(modelfile, 'rb'))
-    # I am hardwiring the file, IS THAT OKAY??? #teraform: look it up
-    # When testing web app locally, use different cloud shell
-    
-    #model = joblib.load(read_file())
-    #print(model)
     app.run(host='127.0.0.1', port=8080, debug=True)
-
-
-    #Questions:
-    # Why isn't my predict URL working? Why isn't request.py working?
-    # Is it okay to hardwire the file as long as it's saved in the same directory?
-    # Should I rename app.yml as app.yaml?
-    # How would I call this project on my resume? 
